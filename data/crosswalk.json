@@ -1,0 +1,208 @@
+{
+  "crosswalk_version": "0.1.0",
+  "status": "draft_informative",
+  "reviewed_on": "2026-10-12",
+  "claim_boundary": "These rows relate disclosure fields to source topics. They do not show conformity, certification, airworthiness approval, maintenance release, or regulatory filing.",
+  "sources": [
+    {
+      "id": "easa-npa-2025-07",
+      "publisher": "EASA",
+      "title": "NPA 2025-07(B): proposed DS.AI",
+      "url": "https://www.easa.europa.eu/en/downloads/142701/en",
+      "published_on": "2025-11-10",
+      "status": "proposal",
+      "status_note": "Consultation closed 2026-03-10; not a final rule."
+    },
+    {
+      "id": "easa-concept-issue-2",
+      "publisher": "EASA",
+      "title": "AI Concept Paper Issue 2: Level 1 and 2 ML applications",
+      "url": "https://www.easa.europa.eu/en/document-library/general-publications/easa-artificial-intelligence-concept-paper-issue-2",
+      "published_on": "2024-03-06",
+      "status": "guidance",
+      "status_note": "Concept paper, not an approval of any product."
+    },
+    {
+      "id": "faa-ai-roadmap-v1",
+      "publisher": "FAA",
+      "title": "Roadmap for Artificial Intelligence Safety Assurance, Version I",
+      "url": "https://www.faa.gov/aircraft/air_cert/step/roadmap_for_AI_safety_assurance",
+      "published_on": "2024-07-23",
+      "status": "roadmap",
+      "status_note": "Guiding principles and plans, not an applicant-specific certification basis."
+    },
+    {
+      "id": "eurocae-wg114",
+      "publisher": "EUROCAE",
+      "title": "WG-114 deliverables: ED-324",
+      "url": "https://www.eurocae.net/working-group/wg-114/",
+      "published_on": null,
+      "status": "draft",
+      "status_note": "ED-324 listed as draft; target publication 2026-12-31 as checked 2026-10-12."
+    },
+    {
+      "id": "sae-arp4754b",
+      "publisher": "SAE International",
+      "title": "ARP4754B public product description",
+      "url": "https://saemobilus.sae.org/standards/arp4754b-guidelines-development-civil-aircraft-systems",
+      "published_on": "2023-12-20",
+      "status": "licensed_published",
+      "status_note": "Only the public description and standard identifier are referenced. No objective mapping has been verified from licensed text."
+    },
+    {
+      "id": "rtca-do178c",
+      "publisher": "RTCA",
+      "title": "DO-178C public standards overview",
+      "url": "https://www.rtca.org/do-178/",
+      "published_on": null,
+      "status": "licensed_published",
+      "status_note": "Published in 2011; exact date not verified here. Only the public description and standard identifier are referenced. No objective mapping has been verified from licensed text."
+    },
+    {
+      "id": "nist-ai-rmf-1",
+      "publisher": "NIST",
+      "title": "AI Risk Management Framework 1.0 Core",
+      "url": "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/",
+      "published_on": "2023-01-26",
+      "status": "voluntary",
+      "status_note": "NIST says AI RMF 1.0 is being revised. Its functions are not a certification checklist."
+    },
+    {
+      "id": "easa-part145",
+      "publisher": "EASA",
+      "title": "Part-145, 145.A.50 certification of maintenance",
+      "url": "https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-continuing-airworthiness?erules-id=ERULES-1963177438-272",
+      "published_on": null,
+      "status": "regulation",
+      "status_note": "Consult current revision and organisation authorisations for an actual release to service."
+    },
+    {
+      "id": "faa-14cfr-43-9",
+      "publisher": "U.S. Government Publishing Office / FAA",
+      "title": "14 CFR § 43.9 maintenance record entries",
+      "url": "https://www.ecfr.gov/current/title-14/chapter-I/subchapter-C/part-43/section-43.9",
+      "published_on": null,
+      "status": "regulation",
+      "status_note": "Current eCFR checked 2026-10-12; U.S. maintenance-record scope only."
+    }
+  ],
+  "rows": [
+    {
+      "id": "concept-of-operations",
+      "field_paths": ["system.intended_use", "human_ai_teaming.role"],
+      "source_id": "easa-npa-2025-07",
+      "reference_id": "DS.AI.100",
+      "applicability": "A vendor describing an AI-based aviation system's concept of operations and end-user role.",
+      "connection": "The fields disclose intended use and the allocation of work between system and human.",
+      "limit": "A filled card does not demonstrate the proposal's objective or an accepted ConOps."
+    },
+    {
+      "id": "ai-level-classification",
+      "field_paths": ["assurance.easa_ai_level", "human_ai_teaming.role", "human_ai_teaming.human_override_available"],
+      "source_id": "easa-npa-2025-07",
+      "reference_id": "DS.AI.110 / AMC1 AI.110",
+      "applicability": "Vendor-declared proposed EASA AI level for the relevant high-level task.",
+      "connection": "Records the claimed level and the human authority posture for review.",
+      "limit": "Level 3B is reserved in the proposal. Level 2A, 2B and 3A have different human authority; a boolean alone cannot establish correct classification."
+    },
+    {
+      "id": "operational-domain",
+      "field_paths": ["odd.operating_conditions", "odd.excluded_conditions", "odd.condition_evidence", "odd.coverage_evidence_refs"],
+      "source_id": "easa-npa-2025-07",
+      "reference_id": "DS.AI.120 / AMC1 AI.120",
+      "applicability": "An AI-based system with defined operating conditions.",
+      "connection": "Declares operating limits and links each declared condition to evidence references.",
+      "limit": "Linked evidence is not verified by this crosswalk; declared-bin coverage is not real-world representativeness or approval."
+    },
+    {
+      "id": "risk-assurance-allocation",
+      "field_paths": ["assurance.target_dal", "assurance.standards_posture"],
+      "source_id": "easa-npa-2025-07",
+      "reference_id": "DS.AI.130",
+      "applicability": "When an applicant has a documented safety assessment and allocated assurance level.",
+      "connection": "Captures a vendor's declared target and related standards posture for later review.",
+      "limit": "No DAL can be inferred from the AI level alone. The card cannot assign, verify, or approve a DAL."
+    },
+    {
+      "id": "learning-assurance",
+      "field_paths": ["learning_assurance.process_summary", "learning_assurance.evidence_refs", "data_management.dataset_manifest_refs"],
+      "source_id": "easa-concept-issue-2",
+      "reference_id": "Issue 2, learning assurance topic",
+      "applicability": "Learning-based aviation systems within the concept paper's Level 1 or 2 scope.",
+      "connection": "Points a reviewer to process and dataset evidence without copying restricted datasets into the card.",
+      "limit": "Concept-paper alignment is not an EASA approval or complete learning-assurance demonstration."
+    },
+    {
+      "id": "faa-learning-system",
+      "field_paths": ["system.intended_use", "learning_assurance.process_summary", "data_management.split_policy"],
+      "source_id": "faa-ai-roadmap-v1",
+      "reference_id": "Guiding principles: learned versus learning AI; work within the aviation ecosystem",
+      "applicability": "FAA-oriented safety-assurance discussion for AI in aircraft and related systems.",
+      "connection": "Prompts explicit intended-use and learning-process documentation.",
+      "limit": "The roadmap sets research and policy direction, not a product-specific certification method."
+    },
+    {
+      "id": "ed324-status",
+      "field_paths": ["assurance.standards_posture"],
+      "source_id": "eurocae-wg114",
+      "reference_id": "ED-324 (draft); ARP6983 (joint work identifier)",
+      "applicability": "Only where the eventual ML process standard is relevant to the system and applicant.",
+      "connection": "A status field can disclose that the standard is being monitored or evaluated.",
+      "limit": "No published ED-324 objective or conformity claim is made. Target publication dates can move."
+    },
+    {
+      "id": "arp4754b-applicability",
+      "field_paths": ["assurance.target_dal", "assurance.standards_posture"],
+      "source_id": "sae-arp4754b",
+      "reference_id": "ARP4754B; objective ID not verified",
+      "applicability": "Aircraft and system development where the applicant identifies an applicable certification basis; not automatically MRO analytics.",
+      "connection": "Records an identifier-level standards posture and allocated system-level assurance target.",
+      "limit": "Licensed objective text and objective numbers are not reproduced or asserted."
+    },
+    {
+      "id": "do178c-applicability",
+      "field_paths": ["assurance.standards_posture"],
+      "source_id": "rtca-do178c",
+      "reference_id": "DO-178C / ED-12C; objective ID not verified",
+      "applicability": "Airborne software when it forms part of the applicant's accepted assurance approach; not automatically off-aircraft maintenance tools.",
+      "connection": "Records that a vendor cites the standard identifier and can link its own evidence.",
+      "limit": "This row does not claim a particular DO-178C objective, software level, or compliance."
+    },
+    {
+      "id": "nist-context",
+      "field_paths": ["system.intended_use", "odd.operating_conditions"],
+      "source_id": "nist-ai-rmf-1",
+      "reference_id": "MAP 1.1",
+      "applicability": "Voluntary risk-management context for organizations using or developing AI.",
+      "connection": "Makes purpose and operating context explicit for human review.",
+      "limit": "NIST AI RMF is voluntary and not an aviation approval checklist."
+    },
+    {
+      "id": "nist-measurement",
+      "field_paths": ["odd.condition_evidence", "data_management.leakage_check_ref"],
+      "source_id": "nist-ai-rmf-1",
+      "reference_id": "MEASURE 1.1",
+      "applicability": "Voluntary choice of measurement methods for significant identified AI risks.",
+      "connection": "Points to bounded ODD evidence and leakage checks to be judged on their merits.",
+      "limit": "A reference or hash does not prove measurement quality, dataset rights, or representativeness."
+    },
+    {
+      "id": "eu-mro-release-separation",
+      "field_paths": ["human_review.staff_id", "human_review.authority_ref", "signature.signature_b64url"],
+      "source_id": "easa-part145",
+      "reference_id": "145.A.50",
+      "applicability": "EASA Part-145 maintenance where an appropriately authorised certifying staff member issues a separate release to service.",
+      "connection": "A review card can point to a human and the organisation's separate authorisation record.",
+      "limit": "A review-card signature does not verify staff privileges or issue a certificate of release to service."
+    },
+    {
+      "id": "us-mro-record-separation",
+      "field_paths": ["finding.summary", "human_review.staff_id", "human_review.authority_ref"],
+      "source_id": "faa-14cfr-43-9",
+      "reference_id": "14 CFR § 43.9(a)",
+      "applicability": "U.S. maintenance records under this section; other inspection or operator programmes may have different rules.",
+      "connection": "An AI review card can travel as supporting evidence alongside the controlled maintenance record.",
+      "limit": "It does not replace the required work description, completion date, or qualifying signer's record."
+    }
+  ]
+}
