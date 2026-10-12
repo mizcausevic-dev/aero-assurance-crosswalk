@@ -1,0 +1,168 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Aviation ML Assurance Card v0.1",
+  "description": "Vendor disclosure of an aviation ML system. Shape validation does not establish airworthiness, regulatory acceptance, or compliance.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "aviation_ml_card_version",
+    "system",
+    "assurance",
+    "odd",
+    "learning_assurance",
+    "data_management",
+    "human_ai_teaming"
+  ],
+  "properties": {
+    "aviation_ml_card_version": { "const": "0.1" },
+    "system": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "version", "provider", "intended_use"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$", "maxLength": 80 },
+        "name": { "$ref": "#/$defs/nonempty" },
+        "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:[-+][0-9A-Za-z.-]+)?$" },
+        "provider": { "$ref": "#/$defs/nonempty" },
+        "intended_use": { "type": "string", "minLength": 10, "maxLength": 2000 }
+      }
+    },
+    "assurance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["easa_ai_level", "target_dal", "standards_posture"],
+      "properties": {
+        "easa_ai_level": {
+          "type": "string",
+          "enum": ["1A", "1B", "2A", "2B", "3A"],
+          "description": "Publisher-declared EASA AI typology. Level 3B is reserved outside this draft's scope."
+        },
+        "target_dal": {
+          "type": "string",
+          "enum": ["A", "B", "C", "D", "E", "not_assigned"],
+          "description": "Proposed target development assurance level, not an authority-approved classification."
+        },
+        "target_dal_basis_ref": { "$ref": "#/$defs/httpsUri" },
+        "standards_posture": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["identifier", "status"],
+            "properties": {
+              "identifier": { "$ref": "#/$defs/nonempty" },
+              "status": { "type": "string", "enum": ["referenced", "mapping_in_progress", "internal_assessment"] },
+              "evidence_uri": { "$ref": "#/$defs/httpsUri" }
+            },
+            "allOf": [
+              {
+                "if": { "type": "object", "properties": { "status": { "const": "internal_assessment" } }, "required": ["status"] },
+                "then": { "type": "object", "required": ["evidence_uri"] }
+              }
+            ]
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": { "type": "object", "properties": { "target_dal": { "enum": ["A", "B", "C", "D", "E"] } }, "required": ["target_dal"] },
+          "then": { "type": "object", "required": ["target_dal_basis_ref"] }
+        }
+      ]
+    },
+    "odd": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["summary", "operating_conditions", "excluded_conditions", "coverage_evidence_refs", "condition_evidence"],
+      "properties": {
+        "summary": { "type": "string", "minLength": 10, "maxLength": 2000 },
+        "operating_conditions": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/nonempty" } },
+        "excluded_conditions": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/nonempty" } },
+        "coverage_evidence_refs": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/httpsUri" } },
+        "condition_evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["condition", "evidence_refs"],
+            "properties": {
+              "condition": { "$ref": "#/$defs/nonempty" },
+              "evidence_refs": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/httpsUri" } }
+            }
+          }
+        }
+      }
+    },
+    "learning_assurance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["process_summary", "evidence_refs"],
+      "properties": {
+        "process_summary": { "type": "string", "minLength": 10, "maxLength": 2000 },
+        "evidence_refs": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/httpsUri" } }
+      }
+    },
+    "data_management": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dataset_manifest_refs", "split_policy"],
+      "properties": {
+        "dataset_manifest_refs": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/httpsUri" } },
+        "split_policy": { "type": "string", "enum": ["group_disjoint", "time_disjoint", "stratified", "other"] },
+        "split_policy_detail": { "$ref": "#/$defs/nonempty" },
+        "leakage_check_ref": { "$ref": "#/$defs/httpsUri" }
+      },
+      "allOf": [
+        {
+          "if": { "type": "object", "properties": { "split_policy": { "const": "other" } }, "required": ["split_policy"] },
+          "then": { "type": "object", "required": ["split_policy_detail"] }
+        }
+      ]
+    },
+    "human_ai_teaming": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "human_override_available", "human_responsibility_summary"],
+      "properties": {
+        "role": { "type": "string", "enum": ["advisory", "decision_support", "autonomous"] },
+        "human_override_available": { "type": "boolean" },
+        "override_procedure_ref": { "$ref": "#/$defs/httpsUri" },
+        "human_responsibility_summary": { "type": "string", "minLength": 10, "maxLength": 2000 }
+      }
+    },
+    "links": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "agent_card_uri": { "$ref": "#/$defs/httpsUri" },
+        "incident_card_index_uri": { "$ref": "#/$defs/httpsUri" },
+        "ai_evidence_uris": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/httpsUri" } }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "$comment": "Conservative Suite disclosure profile, not a statement that EASA mandates an override for every Level 2B design.",
+      "if": {
+        "type": "object",
+        "properties": { "assurance": { "type": "object", "properties": { "easa_ai_level": { "enum": ["2B", "3A"] } }, "required": ["easa_ai_level"] } },
+        "required": ["assurance"]
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "human_ai_teaming": {
+            "type": "object",
+            "properties": { "human_override_available": { "const": true } },
+            "required": ["human_override_available", "override_procedure_ref"]
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "nonempty": { "type": "string", "minLength": 1, "maxLength": 500, "pattern": "\\S" },
+    "httpsUri": { "type": "string", "format": "uri", "pattern": "^https://" }
+  }
+}
