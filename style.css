@@ -13,7 +13,8 @@ header { padding-block: 2.5rem 1.5rem; border-bottom: 1px solid #b6c6c3; }
 .eyebrow { color: #687a74; }
 h1 { max-width: 16ch; margin: .4rem 0; font: 700 clamp(2.2rem, 5vw, 4.3rem)/1.05 Georgia, serif; letter-spacing: -.03em; }
 h2 { font: 700 clamp(1.5rem, 3vw, 2.1rem)/1.2 Georgia, serif; }
-h3 { margin: 0 0 .6rem; font: 700 1.3rem/1.25 Georgia, serif; text-transform: capitalize; }
+h3 { margin: 0 0 .6rem; font: 700 1.3rem/1.25 Georgia, serif; }
+.related { display: flex; flex-wrap: wrap; gap: .4rem 1.2rem; }
 .intro { max-width: 65ch; font-size: 1.12rem; }
 .date, .section-lede { color: #50615d; }
 main { padding-block: 1.5rem 3rem; }

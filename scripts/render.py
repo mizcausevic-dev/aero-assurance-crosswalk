@@ -127,6 +127,7 @@ def render(data: dict) -> str:
     <h1>Aerospace assurance crosswalk</h1>
     <p class="intro">A traceable map from proposed aviation card fields to public source topics. It helps reviewers ask better questions; it does not approve a system or maintenance release.</p>
     <p class="date">Source status checked """ + checked_time + """</p>
+    <nav aria-label="Related resources" class="related"><a href="https://suite.kineticgain.com/">Protocol Suite</a><a href="https://github.com/mizcausevic-dev/aero-assurance-crosswalk">Source repository and data</a></nav>
   </header>
   <main id="main">
     <section aria-labelledby="boundary-heading" class="boundary">
