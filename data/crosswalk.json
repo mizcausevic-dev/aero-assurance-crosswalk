@@ -89,6 +89,7 @@
   "rows": [
     {
       "id": "concept-of-operations",
+      "title": "Concept of operations",
       "field_paths": ["system.intended_use", "human_ai_teaming.role"],
       "source_id": "easa-npa-2025-07",
       "reference_id": "DS.AI.100",
@@ -98,6 +99,7 @@
     },
     {
       "id": "ai-level-classification",
+      "title": "AI level classification",
       "field_paths": ["assurance.easa_ai_level", "human_ai_teaming.role", "human_ai_teaming.human_override_available"],
       "source_id": "easa-npa-2025-07",
       "reference_id": "DS.AI.110 / AMC1 AI.110",
@@ -107,6 +109,7 @@
     },
     {
       "id": "operational-domain",
+      "title": "Operational domain",
       "field_paths": ["odd.operating_conditions", "odd.excluded_conditions", "odd.condition_evidence", "odd.coverage_evidence_refs"],
       "source_id": "easa-npa-2025-07",
       "reference_id": "DS.AI.120 / AMC1 AI.120",
@@ -116,6 +119,7 @@
     },
     {
       "id": "risk-assurance-allocation",
+      "title": "Risk and assurance allocation",
       "field_paths": ["assurance.target_dal", "assurance.standards_posture"],
       "source_id": "easa-npa-2025-07",
       "reference_id": "DS.AI.130",
@@ -125,6 +129,7 @@
     },
     {
       "id": "learning-assurance",
+      "title": "Learning assurance",
       "field_paths": ["learning_assurance.process_summary", "learning_assurance.evidence_refs", "data_management.dataset_manifest_refs"],
       "source_id": "easa-concept-issue-2",
       "reference_id": "Issue 2, learning assurance topic",
@@ -134,6 +139,7 @@
     },
     {
       "id": "faa-learning-system",
+      "title": "FAA learning system",
       "field_paths": ["system.intended_use", "learning_assurance.process_summary", "data_management.split_policy"],
       "source_id": "faa-ai-roadmap-v1",
       "reference_id": "Guiding principles: learned versus learning AI; work within the aviation ecosystem",
@@ -143,6 +149,7 @@
     },
     {
       "id": "ed324-status",
+      "title": "ED-324 status",
       "field_paths": ["assurance.standards_posture"],
       "source_id": "eurocae-wg114",
       "reference_id": "ED-324 (draft); ARP6983 (joint work identifier)",
@@ -152,6 +159,7 @@
     },
     {
       "id": "arp4754b-applicability",
+      "title": "ARP4754B applicability",
       "field_paths": ["assurance.target_dal", "assurance.standards_posture"],
       "source_id": "sae-arp4754b",
       "reference_id": "ARP4754B; objective ID not verified",
@@ -161,6 +169,7 @@
     },
     {
       "id": "do178c-applicability",
+      "title": "DO-178C applicability",
       "field_paths": ["assurance.standards_posture"],
       "source_id": "rtca-do178c",
       "reference_id": "DO-178C / ED-12C; objective ID not verified",
@@ -170,6 +179,7 @@
     },
     {
       "id": "nist-context",
+      "title": "NIST AI RMF context",
       "field_paths": ["system.intended_use", "odd.operating_conditions"],
       "source_id": "nist-ai-rmf-1",
       "reference_id": "MAP 1.1",
@@ -179,6 +189,7 @@
     },
     {
       "id": "nist-measurement",
+      "title": "NIST AI RMF measurement",
       "field_paths": ["odd.condition_evidence", "data_management.leakage_check_ref"],
       "source_id": "nist-ai-rmf-1",
       "reference_id": "MEASURE 1.1",
@@ -188,6 +199,7 @@
     },
     {
       "id": "eu-mro-release-separation",
+      "title": "EU maintenance release separation",
       "field_paths": ["human_review.staff_id", "human_review.authority_ref", "signature.signature_b64url"],
       "source_id": "easa-part145",
       "reference_id": "145.A.50",
@@ -197,6 +209,7 @@
     },
     {
       "id": "us-mro-record-separation",
+      "title": "U.S. maintenance record separation",
       "field_paths": ["finding.summary", "human_review.staff_id", "human_review.authority_ref"],
       "source_id": "faa-14cfr-43-9",
       "reference_id": "14 CFR § 43.9(a)",

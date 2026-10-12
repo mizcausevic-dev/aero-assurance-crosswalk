@@ -22,6 +22,12 @@ class CrosswalkTests(unittest.TestCase):
         page = render(self.data)
         self.assertIn('<time datetime="2026-10-12">2026-10-12</time>', page)
 
+    def test_human_titles_preserve_standard_acronyms(self):
+        page = render(self.data)
+        self.assertIn('>AI level classification</h3>', page)
+        self.assertIn('>FAA learning system</h3>', page)
+        self.assertIn('>U.S. maintenance record separation</h3>', page)
+
     def test_duplicate_row_rejected(self):
         bad = copy.deepcopy(self.data)
         bad["rows"].append(copy.deepcopy(bad["rows"][0]))

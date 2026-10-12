@@ -68,7 +68,7 @@ def validate(data: dict) -> None:
         paths = row["field_paths"]
         if not paths or len(paths) != len(set(paths)) or set(paths) - FIELDS:
             raise ValueError(f"Unknown or duplicate field path in row: {row_id}")
-        for key in ("reference_id", "applicability", "connection", "limit"):
+        for key in ("title", "reference_id", "applicability", "connection", "limit"):
             if not row.get(key):
                 raise ValueError(f"Missing row {key}: {row_id}")
     if source_ids != used_sources:
@@ -89,7 +89,7 @@ def render(data: dict) -> str:
         articles.append(
             f'<li id="{escape(row["id"])}"><article aria-labelledby="title-{escape(row["id"])}">'
             f'<p class="eyebrow">{escape(source["publisher"])} · {escape(source["status"].replace("_", " "))}</p>'
-            f'<h3 id="title-{escape(row["id"])}">{escape(row["id"].replace("-", " ").title())}</h3>'
+            f'<h3 id="title-{escape(row["id"])}">{escape(row["title"])}</h3>'
             f'<p><strong>Card fields:</strong> {fields}</p>'
             f'<p><strong>Reference:</strong> <a href="{escape(source["url"])}">{escape(row["reference_id"])} <span class="sr-only">at {escape(source["publisher"])}</span></a></p>'
             f'<p><strong>Applies when:</strong> {escape(row["applicability"])}</p>'
