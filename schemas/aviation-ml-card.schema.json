@@ -88,8 +88,23 @@
             "required": ["condition", "evidence_refs"],
             "properties": {
               "condition": { "$ref": "#/$defs/nonempty" },
+              "condition_id": { "$ref": "#/$defs/stableId" },
+              "bin_refs": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["dimension", "bin"],
+                  "properties": {
+                    "dimension": { "$ref": "#/$defs/stableId" },
+                    "bin": { "$ref": "#/$defs/stableId" }
+                  }
+                }
+              },
               "evidence_refs": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/httpsUri" } }
-            }
+            },
+            "dependentRequired": { "condition_id": ["bin_refs"], "bin_refs": ["condition_id"] }
           }
         }
       }
@@ -163,6 +178,7 @@
   ],
   "$defs": {
     "nonempty": { "type": "string", "minLength": 1, "maxLength": 500, "pattern": "\\S" },
+    "stableId": { "type": "string", "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$", "maxLength": 80 },
     "httpsUri": { "type": "string", "format": "uri", "pattern": "^https://" }
   }
 }

@@ -20,13 +20,13 @@ SCHEMA_PINS = (
     {
         "name": "Aviation ML Assurance Card",
         "file": "aviation-ml-card.schema.json",
-        "commit": "6995c12453a5ac588b7d9c1de5d285fed7fe2fe1",
-        "sha256": "c819a218fd3d7282d9b14786f59cb30c4cbb57fb0df3897dbf92fd4d0f2f4ff1",
+        "commit": "e90bc740afa8588431d6be51b8667ef32e414557",
+        "sha256": "2d8b05ad494edef96ca663539c4d31d66b9412947846973f6e698e3b468d8d34",
     },
     {
         "name": "MRO AI Sign-off Card",
         "file": "mro-ai-signoff-card.schema.json",
-        "commit": "c3cf35b8955194266d70eb855b307ddb6c1bd1dd",
+        "commit": "09095ea2bd1c0abd9fe8454be743711fcc835912",
         "sha256": "c9572c0ea4175679021c33ffa232dc244435159323c67c5eb91cc734418ae4da",
     },
 )
