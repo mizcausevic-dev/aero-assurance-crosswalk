@@ -1,7 +1,7 @@
 {
   "crosswalk_version": "0.1.0",
   "status": "draft_informative",
-  "reviewed_on": "2026-10-12",
+  "reviewed_on": "2026-10-14",
   "claim_boundary": "These rows relate disclosure fields to source topics. They do not show conformity, certification, airworthiness approval, maintenance release, or regulatory filing.",
   "sources": [
     {
@@ -11,7 +11,7 @@
       "url": "https://www.easa.europa.eu/en/downloads/142701/en",
       "published_on": "2025-11-10",
       "status": "proposal",
-      "status_note": "Consultation closed 2026-03-10; not a final rule."
+      "status_note": "Consultation closed 2026-03-10; not a final rule. Proposed DS.AI.010 scope is limited to specified high-risk Level 1 or 2 systems and excludes further cases; listing Level 3 in the classification table does not bring Level 3 into scope."
     },
     {
       "id": "easa-concept-issue-2",
@@ -38,7 +38,7 @@
       "url": "https://www.eurocae.net/working-group/wg-114/",
       "published_on": null,
       "status": "draft",
-      "status_note": "ED-324 listed as draft; target publication 2026-12-31 as checked 2026-10-12."
+      "status_note": "ED-324 listed as draft; target publication 2026-12-31 as checked 2026-10-14."
     },
     {
       "id": "sae-arp4754b",
@@ -83,7 +83,7 @@
       "url": "https://www.ecfr.gov/current/title-14/chapter-I/subchapter-C/part-43/section-43.9",
       "published_on": null,
       "status": "regulation",
-      "status_note": "Current eCFR checked 2026-10-12; U.S. maintenance-record scope only."
+      "status_note": "Current eCFR checked 2026-10-14; U.S. maintenance-record scope only."
     }
   ],
   "rows": [
@@ -93,7 +93,7 @@
       "field_paths": ["system.intended_use", "human_ai_teaming.role"],
       "source_id": "easa-npa-2025-07",
       "reference_id": "DS.AI.100",
-      "applicability": "A vendor describing an AI-based aviation system's concept of operations and end-user role.",
+      "applicability": "A vendor describing the concept of operations and end-user role for a system within the proposal's DS.AI.010 scope.",
       "connection": "The fields disclose intended use and the allocation of work between system and human.",
       "limit": "A filled card does not demonstrate the proposal's objective or an accepted ConOps."
     },
@@ -103,9 +103,9 @@
       "field_paths": ["assurance.easa_ai_level", "human_ai_teaming.role", "human_ai_teaming.human_override_available"],
       "source_id": "easa-npa-2025-07",
       "reference_id": "DS.AI.110 / AMC1 AI.110",
-      "applicability": "Vendor-declared proposed EASA AI level for the relevant high-level task.",
+      "applicability": "Vendor-declared AI level for a system being assessed against the proposal's DS.AI.010 scope.",
       "connection": "Records the claimed level and the human authority posture for review.",
-      "limit": "Level 3B is reserved in the proposal. Level 2A, 2B and 3A have different human authority; a boolean alone cannot establish correct classification."
+      "limit": "The proposed DS.AI requirements are scoped to specified high-risk Level 1 and 2 systems, with further exclusions. Its table describes Level 3A and reserves Level 3B, but that does not make Level 3 systems in scope. A boolean alone cannot establish classification or human authority."
     },
     {
       "id": "operational-domain",
@@ -113,7 +113,7 @@
       "field_paths": ["odd.operating_conditions", "odd.excluded_conditions", "odd.condition_evidence", "odd.coverage_evidence_refs"],
       "source_id": "easa-npa-2025-07",
       "reference_id": "DS.AI.120 / AMC1 AI.120",
-      "applicability": "An AI-based system with defined operating conditions.",
+      "applicability": "A system within the proposal's DS.AI.010 scope with defined operating conditions.",
       "connection": "Declares operating limits and links each declared condition to evidence references.",
       "limit": "Linked evidence is not verified by this crosswalk; declared-bin coverage is not real-world representativeness or approval."
     },
@@ -123,7 +123,7 @@
       "field_paths": ["assurance.target_dal", "assurance.standards_posture"],
       "source_id": "easa-npa-2025-07",
       "reference_id": "DS.AI.130",
-      "applicability": "When an applicant has a documented safety assessment and allocated assurance level.",
+      "applicability": "A system within the proposal's DS.AI.010 scope when an applicant has a documented safety assessment and allocated assurance level.",
       "connection": "Captures a vendor's declared target and related standards posture for later review.",
       "limit": "No DAL can be inferred from the AI level alone. The card cannot assign, verify, or approve a DAL."
     },
