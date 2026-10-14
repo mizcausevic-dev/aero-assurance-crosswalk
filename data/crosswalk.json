@@ -119,13 +119,13 @@
     },
     {
       "id": "risk-assurance-allocation",
-      "title": "Risk and assurance allocation",
+      "title": "Risk assessment and assurance gap",
       "field_paths": ["assurance.target_dal", "assurance.standards_posture"],
       "source_id": "easa-npa-2025-07",
       "reference_id": "DS.AI.130",
-      "applicability": "A system within the proposal's DS.AI.010 scope when an applicant has a documented safety assessment and allocated assurance level.",
-      "connection": "Captures a vendor's declared target and related standards posture for later review.",
-      "limit": "No DAL can be inferred from the AI level alone. The card cannot assign, verify, or approve a DAL."
+      "applicability": "A system within the proposal's DS.AI.010 scope whose applicant must assess risk and allocate assurance or tool qualification level (AL/TQL).",
+      "connection": "The vendor-declared target DAL and standards posture can prompt review of the separate risk assessment and AL/TQL allocation; they are not that allocation.",
+      "limit": "The card does not encode the proposed hazard assessment or AL/TQL determination. A DAL or AI level cannot be converted into AL/TQL from these fields, and the card cannot approve either allocation."
     },
     {
       "id": "learning-assurance",

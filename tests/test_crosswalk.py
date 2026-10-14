@@ -30,6 +30,11 @@ class CrosswalkTests(unittest.TestCase):
         self.assertIn('>FAA learning system</h3>', page)
         self.assertIn('>U.S. maintenance record separation</h3>', page)
 
+    def test_proposed_assurance_allocation_is_not_a_dal_claim(self):
+        row = next(row for row in self.data["rows"] if row["id"] == "risk-assurance-allocation")
+        self.assertIn("AL/TQL", row["limit"])
+        self.assertIn("cannot be converted", row["limit"])
+
     def test_duplicate_row_rejected(self):
         bad = copy.deepcopy(self.data)
         bad["rows"].append(copy.deepcopy(bad["rows"][0]))
