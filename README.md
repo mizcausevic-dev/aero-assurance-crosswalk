@@ -9,6 +9,7 @@ Mapped field paths are checked against byte-pinned copies of the two source JSON
 ## Read the boundaries first
 
 - [EASA NPA 2025-07](https://www.easa.europa.eu/en/document-library/notices-of-proposed-amendment/npa-2025-07) remains proposed material. Its comment period closed on 2026-03-10. Proposed DS.AI.010 covers specified high-risk Level 1 and 2 systems and lists further exclusions. The classification table describes Level 3A and reserves Level 3B, but that does not bring Level 3 systems into the proposal's stated DS.AI scope.
+- The NPA's DS.AI.120 addresses the AI-based system's operational domain (OD). It separately defines an AI constituent's operational design domain (ODD). The card schema uses `odd` as a field name; its crosswalk row is a review prompt, not an assertion that OD and ODD are interchangeable.
 - Proposed DS.AI.130 describes allocation of an AI constituent assurance level or tool qualification level (AL/TQL) after a risk assessment. The Aviation Card's vendor-declared `target_dal` is a different field; it does not encode or establish that AL/TQL allocation.
 - The [FAA AI Safety Assurance Roadmap](https://www.faa.gov/aircraft/air_cert/step/roadmap_for_AI_safety_assurance) is a roadmap, not a certification basis.
 - [EUROCAE WG-114](https://www.eurocae.net/working-group/wg-114/) lists ED-324 as a draft, with a target publication date of 2026-12-31. Do not assert compliance against unpublished objectives.

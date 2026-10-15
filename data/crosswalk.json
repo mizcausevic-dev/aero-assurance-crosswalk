@@ -114,8 +114,8 @@
       "source_id": "easa-npa-2025-07",
       "reference_id": "DS.AI.120 / AMC1 AI.120",
       "applicability": "A system within the proposal's DS.AI.010 scope with defined operating conditions.",
-      "connection": "Declares operating limits and links each declared condition to evidence references.",
-      "limit": "Linked evidence is not verified by this crosswalk; declared-bin coverage is not real-world representativeness or approval."
+      "connection": "The card's odd object declares operating conditions and evidence references that a reviewer can compare with the proposed system-level operational domain.",
+      "limit": "DS.AI.120 addresses the AI-based system's operational domain (OD); the proposal separately defines a constituent's operational design domain (ODD). The card field name does not make those concepts equivalent. Linked evidence is not verified here, and declared-bin coverage is not real-world representativeness or approval."
     },
     {
       "id": "risk-assurance-allocation",
