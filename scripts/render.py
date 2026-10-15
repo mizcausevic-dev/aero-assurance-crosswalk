@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import html
 import json
 import re
@@ -15,23 +16,69 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data" / "crosswalk.json"
 PAGE = ROOT / "index.html"
 STATUSES = {"proposal", "guidance", "roadmap", "draft", "licensed_published", "voluntary", "regulation"}
-FIELDS = {
-    "system.intended_use", "human_ai_teaming.role", "assurance.easa_ai_level",
-    "human_ai_teaming.human_override_available", "odd.operating_conditions",
-    "odd.excluded_conditions", "odd.condition_evidence", "odd.coverage_evidence_refs",
-    "assurance.target_dal", "assurance.standards_posture",
-    "learning_assurance.process_summary", "learning_assurance.evidence_refs",
-    "data_management.dataset_manifest_refs", "data_management.split_policy",
-    "data_management.leakage_check_ref", "human_review.staff_id",
-    "human_review.authority_ref", "signature.signature_b64url", "finding.summary",
-}
+SCHEMA_PINS = (
+    {
+        "name": "Aviation ML Assurance Card",
+        "file": "aviation-ml-card.schema.json",
+        "commit": "e90bc740afa8588431d6be51b8667ef32e414557",
+        "sha256": "2d8b05ad494edef96ca663539c4d31d66b9412947846973f6e698e3b468d8d34",
+    },
+    {
+        "name": "MRO AI Sign-off Card",
+        "file": "mro-ai-signoff-card.schema.json",
+        "commit": "09095ea2bd1c0abd9fe8454be743711fcc835912",
+        "sha256": "c9572c0ea4175679021c33ffa232dc244435159323c67c5eb91cc734418ae4da",
+    },
+)
 
 
 def load_data() -> dict:
     return json.loads(DATA.read_text(encoding="utf-8"))
 
 
-def validate(data: dict) -> None:
+def load_pinned_schemas() -> dict[str, dict]:
+    """Read checked-in upstream schemas only after verifying their pinned bytes."""
+    schemas = {}
+    for pin in SCHEMA_PINS:
+        raw = (ROOT / "schemas" / pin["file"]).read_bytes()
+        if hashlib.sha256(raw).hexdigest() != pin["sha256"]:
+            raise ValueError(f"Pinned schema hash mismatch: {pin['name']}")
+        schema = json.loads(raw)
+        if schema.get("$schema") != "https://json-schema.org/draft/2020-12/schema" or not isinstance(schema.get("properties"), dict):
+            raise ValueError(f"Unsupported pinned schema: {pin['name']}")
+        schemas[pin["name"]] = schema
+    return schemas
+
+
+def field_path_exists(schema: dict, path: str) -> bool:
+    """Follow explicit JSON Schema properties; unsupported compositions fail closed."""
+    node = schema
+    for segment in path.split("."):
+        properties = node.get("properties")
+        if not isinstance(properties, dict) or segment not in properties:
+            return False
+        node = properties[segment]
+        if not isinstance(node, dict):
+            return False
+    return True
+
+
+def validate_field_paths(paths: list[str], schemas: dict[str, dict], row_id: str) -> None:
+    if not isinstance(paths, list) or not paths or any(not isinstance(path, str) for path in paths):
+        raise ValueError(f"Invalid field paths in row: {row_id}")
+    if len(paths) != len(set(paths)):
+        raise ValueError(f"Duplicate field path in row: {row_id}")
+    for path in paths:
+        if not re.fullmatch(r"[a-z][a-z0-9_]*(?:\.[a-z][a-z0-9_]*)+", path):
+            raise ValueError(f"Invalid field path in row: {row_id}: {path}")
+        root = path.split(".", 1)[0]
+        owners = [schema for schema in schemas.values() if root in schema["properties"]]
+        if len(owners) != 1 or not field_path_exists(owners[0], path):
+            raise ValueError(f"Unknown or ambiguous field path in row: {row_id}: {path}")
+
+
+def validate(data: dict, *, schemas: dict[str, dict] | None = None) -> None:
+    schemas = load_pinned_schemas() if schemas is None else schemas
     if data.get("status") != "draft_informative" or not data.get("claim_boundary"):
         raise ValueError("Crosswalk must retain its draft status and claim boundary")
     date.fromisoformat(data["reviewed_on"])
@@ -66,8 +113,7 @@ def validate(data: dict) -> None:
             raise ValueError(f"Unknown source in row: {row_id}")
         used_sources.add(row["source_id"])
         paths = row["field_paths"]
-        if not paths or len(paths) != len(set(paths)) or set(paths) - FIELDS:
-            raise ValueError(f"Unknown or duplicate field path in row: {row_id}")
+        validate_field_paths(paths, schemas, row_id)
         for key in ("title", "reference_id", "applicability", "connection", "limit"):
             if not row.get(key):
                 raise ValueError(f"Missing row {key}: {row_id}")
