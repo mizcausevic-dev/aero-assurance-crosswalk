@@ -1,7 +1,7 @@
 {
   "crosswalk_version": "0.1.0",
   "status": "draft_informative",
-  "reviewed_on": "2026-10-14",
+  "reviewed_on": "2026-10-31",
   "claim_boundary": "These rows relate disclosure fields to source topics. They do not show conformity, certification, airworthiness approval, maintenance release, or regulatory filing.",
   "sources": [
     {
@@ -38,7 +38,7 @@
       "url": "https://www.eurocae.net/working-group/wg-114/",
       "published_on": null,
       "status": "draft",
-      "status_note": "ED-324 listed as draft; target publication 2026-12-31 as checked 2026-10-14."
+      "status_note": "ED-324 listed as draft; target publication 2026-12-31 as checked 2026-10-31."
     },
     {
       "id": "sae-arp4754b",
@@ -83,7 +83,7 @@
       "url": "https://www.ecfr.gov/current/title-14/chapter-I/subchapter-C/part-43/section-43.9",
       "published_on": null,
       "status": "regulation",
-      "status_note": "Current eCFR checked 2026-10-14; U.S. maintenance-record scope only."
+      "status_note": "Current eCFR checked 2026-10-31; U.S. maintenance-record scope only."
     }
   ],
   "rows": [

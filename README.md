@@ -1,6 +1,6 @@
 # Aerospace assurance crosswalk
 
-**Draft, informative reference.** This is a vertical extension of the Kinetic Gain Protocol Suite, not an airworthiness approval, regulatory filing, or certification checklist. Source status was checked on **2026-10-14**.
+**Draft, informative reference.** This is a vertical extension of the Kinetic Gain Protocol Suite, not an airworthiness approval, regulatory filing, or certification checklist. Source status was checked on **2026-10-31**.
 
 The [crosswalk data](data/crosswalk.json) relates proposed Aviation ML Assurance Card and MRO AI Sign-off Card fields to public aviation sources. It states applicability and limits per row. [`index.html`](index.html) is a generated static reading view of the same rows.
 

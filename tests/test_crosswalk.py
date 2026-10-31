@@ -22,7 +22,8 @@ class CrosswalkTests(unittest.TestCase):
 
     def test_review_date_has_valid_quoted_datetime_attribute(self):
         page = render(self.data)
-        self.assertIn('<time datetime="2026-10-14">2026-10-14</time>', page)
+        checked_date = self.data["reviewed_on"]
+        self.assertIn(f'<time datetime="{checked_date}">{checked_date}</time>', page)
 
     def test_human_titles_preserve_standard_acronyms(self):
         page = render(self.data)
