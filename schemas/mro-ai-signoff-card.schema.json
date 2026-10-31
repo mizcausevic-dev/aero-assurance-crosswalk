@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MRO AI Sign-off Card v0.1",
+  "description": "Human review record for an AI-assisted maintenance finding. This card does not authorize aircraft return to service.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["mro_signoff_card_version", "finding", "artifact", "evidence_refs", "human_review", "signature"],
+  "properties": {
+    "mro_signoff_card_version": { "const": "0.1" },
+    "finding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "summary", "model_id", "model_version", "confidence"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$", "maxLength": 80 },
+        "kind": { "type": "string", "enum": ["borescope", "ndt", "predictive_maintenance", "other"] },
+        "kind_other_text": { "$ref": "#/$defs/nonempty" },
+        "summary": { "type": "string", "minLength": 10, "maxLength": 2000 },
+        "model_id": { "$ref": "#/$defs/nonempty" },
+        "model_version": { "$ref": "#/$defs/nonempty" },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+      },
+      "allOf": [
+        {
+          "if": { "type": "object", "properties": { "kind": { "const": "other" } }, "required": ["kind"] },
+          "then": { "type": "object", "required": ["kind_other_text"] }
+        }
+      ]
+    },
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "sha256"],
+      "properties": {
+        "id": { "$ref": "#/$defs/nonempty" },
+        "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$", "description": "SHA-256 of the exact original artifact bytes; no text normalization." },
+        "media_type": { "type": "string", "pattern": "^[a-z0-9.+-]+/[a-z0-9.+-]+$" },
+        "byte_length": { "type": "integer", "minimum": 0, "maximum": 9007199254740991 }
+      }
+    },
+    "evidence_refs": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/httpsUri" }
+    },
+    "human_review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["staff_id", "decision", "reviewed_at", "authority_ref"],
+      "properties": {
+        "staff_id": { "type": "string", "minLength": 1, "maxLength": 128, "description": "Pseudonymous or organizational staff identifier. Identity and authorization require external verification." },
+        "decision": { "type": "string", "enum": ["accept", "override", "reject"], "description": "Decision on the AI finding only; never a maintenance release." },
+        "reviewed_at": { "type": "string", "format": "date-time", "pattern": "Z$" },
+        "authority_ref": { "$ref": "#/$defs/httpsUri", "description": "Pointer to an external authority record; the card does not verify the record or grant privileges." },
+        "override_reason": { "$ref": "#/$defs/nonempty" },
+        "comment": { "type": "string", "maxLength": 2000 }
+      },
+      "allOf": [
+        {
+          "if": { "type": "object", "properties": { "decision": { "const": "override" } }, "required": ["decision"] },
+          "then": { "type": "object", "required": ["override_reason"] }
+        }
+      ]
+    },
+    "signature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["profile", "key_id", "signed_at", "signature_b64url"],
+      "properties": {
+        "profile": { "const": "JCS-SHA256-Ed25519-v1" },
+        "key_id": { "$ref": "#/$defs/nonempty" },
+        "signed_at": { "type": "string", "format": "date-time", "pattern": "Z$" },
+        "signature_b64url": { "type": "string", "pattern": "^[A-Za-z0-9_-]{86}$" }
+      }
+    }
+  },
+  "$defs": {
+    "nonempty": { "type": "string", "minLength": 1, "maxLength": 500, "pattern": "\\S" },
+    "httpsUri": { "type": "string", "format": "uri", "pattern": "^https://" }
+  }
+}
